@@ -7,6 +7,7 @@ jobs:
     steps:
       - run: echo step 1
       - run: echo step 2
-      - run: echo step 3 failed && exit 1
+      - continue-on-error: ${{ vars.CONTINUE_ON_ERROR == 'true' }}
+        run: echo step 3 failed && exit 1
       - run: echo step 4
       - run: echo step 5
