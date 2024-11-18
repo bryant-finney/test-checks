@@ -7,8 +7,8 @@ jobs:
     steps:
       - if: vars.FAIL_MAIN
         run: exit 1
-        
-      - run: "success ✅"
+
+      - run: echo "success ✅"
 
   child:
     uses: ./.github/workflows/child.yaml
