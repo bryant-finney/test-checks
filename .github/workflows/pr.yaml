@@ -6,7 +6,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - if: vars.FAIL_MAIN
-        run: exit 1
+        run: |
+          printf 'vars.FAIL_MAIN=%s\n' "${{ vars.FAIL_MAIN }}"
+          exit 1
 
       - run: echo "success ✅"
 
