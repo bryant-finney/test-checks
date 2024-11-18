@@ -1,0 +1,28 @@
+on:
+  pull_request:
+
+jobs:
+  main:
+    runs-on: ubuntu-latest
+    steps:
+      - if: vars.FAIL_MAIN
+        run: exit 1
+        
+      - run: "success ✅"
+
+  child:
+    uses: ./.github/workflows/child.yaml
+
+  verify-success:
+    runs-on: ubuntu-latest
+    if: ${{ always() }}
+    needs:
+      - main
+
+    steps:
+      - name: Verify Success or Failure
+        run: |
+          if [ "${{ contains('failure,cancelled', needs.main.result) }}" = 'true' ]; then
+            echo "Workflow execution was cancelled or failed ❌"
+            exit 1
+          fi
